@@ -22,6 +22,7 @@
         <junit.version>4.12</junit.version>
         <mockito.version>1.10.19</mockito.version>
         <h2.version>1.4.194</h2.version>
+        <mysql-connector.version>8.0.15</mysql-connector.version>
     </properties>
 
     <dependencies>
@@ -68,6 +69,11 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>${log4j2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector.version}</version>
         </dependency>
     </dependencies>
 </project>
