@@ -33,7 +33,7 @@ public class ConnectionServiceImpl implements ConnectionService {
     @PostConstruct
     private void createDataBaseTable() {
         logger.debug("initialization tables in the database... ");
-        String createDocumentTableQuery = "CREATE TABLE IF NOT EXISTS documents( id BIGINT auto_increment PRIMARY KEY,  unique_number VARCHAR(255) NOT NULL UNIQUE, description VARCHAR(255), deleted BOOLEAN DEFAULT FALSE NOT NULL)";
+        String createDocumentTableQuery = dataBaseProperties.getCreateDocTableQuery();
         try (Connection connection = getConnection()) {
             connection.setAutoCommit(false);
             try (Statement statement = connection.createStatement()) {

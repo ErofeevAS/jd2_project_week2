@@ -12,10 +12,16 @@ public class DataBaseProperties {
     private String username;
     @Value("${database.password:}")
     private String password;
-    @Value("${database.driver.name}")
+    @Value("${database.driver}")
     private String driver;
-    @Value("${database.serverTimezone}")
+    @Value("${database.serverTimezone:}")
     private String serverTimezone;
+    @Value("${database.create.documents.table.query:}")
+    private String createDocumentTableQuery;
+
+    public String getCreateDocTableQuery() {
+        return createDocumentTableQuery;
+    }
 
     public String getUrl() {
         return url;

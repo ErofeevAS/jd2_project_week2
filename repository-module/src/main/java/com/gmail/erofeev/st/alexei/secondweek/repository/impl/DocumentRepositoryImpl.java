@@ -8,7 +8,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 @Repository
 public class DocumentRepositoryImpl implements DocumentRepository {
@@ -30,12 +34,12 @@ public class DocumentRepositoryImpl implements DocumentRepository {
                 ps.setString(1, uniqueNumber);
                 ps.setString(2, description);
                 ps.execute();
-                connection.commit();
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     if (rs.next()) {
                         document.setId(rs.getLong(1));
                     }
                 }
+                connection.commit();
             } catch (SQLException e) {
                 logger.error(e.getMessage(), e);
                 connection.rollback();
@@ -72,7 +76,6 @@ public class DocumentRepositoryImpl implements DocumentRepository {
             logger.error(e.getMessage(), e);
             throw new DataBaseException("Database exception during reading a document", e);
         }
-
     }
 
     private Document getDocument(ResultSet resultSet) throws SQLException {
