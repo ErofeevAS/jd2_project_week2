@@ -86,7 +86,7 @@ public class DocumentRepositoryImpl implements DocumentRepository {
 
     @Override
     public void delete(Long id) {
-        String softDeleteByIdQuery = "UPDATE documents SET deleted = TRUE WHERE id=?";
+        String softDeleteByIdQuery = "UPDATE documents SET deleted = TRUE WHERE id=? and deleted=false";
         try (Connection connection = connectionService.getConnection()) {
             connection.setAutoCommit(false);
             try (PreparedStatement ps = connection.prepareStatement(softDeleteByIdQuery)) {

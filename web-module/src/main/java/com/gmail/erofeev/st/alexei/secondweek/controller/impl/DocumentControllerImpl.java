@@ -16,10 +16,14 @@ import java.util.Map;
 @Component
 public class DocumentControllerImpl implements DocumentController {
     private static final Logger logger = LogManager.getLogger(DocumentControllerImpl.class);
-    @Autowired
     private DocumentService documentService;
-    @Autowired
     private DocumentDTOValidator documentDTOValidator;
+
+    @Autowired
+    public DocumentControllerImpl(DocumentService documentService, DocumentDTOValidator documentDTOValidator) {
+        this.documentService = documentService;
+        this.documentDTOValidator = documentDTOValidator;
+    }
 
     @Override
     public DocumentDTO add(DocumentDTO documentDTO) {
