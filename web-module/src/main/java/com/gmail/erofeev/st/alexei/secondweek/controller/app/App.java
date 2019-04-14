@@ -13,7 +13,7 @@ public class App {
         ctx.refresh();
         DocumentController documentController = ctx.getBean(DocumentControllerImpl.class);
         DocumentDTO documentDTO = new DocumentDTO("0123456789");
-        documentController.delete(10L);
+        documentController.getDocumentById(1L);
 //        documentController.add(documentDTO);
 //        documentController.delete(1L);
         //System.out.println(documentController.getDocumentById(99L));

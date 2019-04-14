@@ -23,6 +23,7 @@
         <mockito.version>1.10.19</mockito.version>
         <h2.version>1.4.194</h2.version>
         <mysql-connector.version>8.0.15</mysql-connector.version>
+        <aspectj.version>1.7.4</aspectj.version>
     </properties>
 
     <dependencies>
@@ -74,6 +75,17 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql-connector.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjtools</artifactId>
+            <version>${aspectj.version}</version>
         </dependency>
     </dependencies>
 </project>
