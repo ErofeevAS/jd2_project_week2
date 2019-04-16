@@ -6,6 +6,7 @@ import com.gmail.erofeev.st.alexei.secondweek.repository.exception.DataBaseExcep
 import com.gmail.erofeev.st.alexei.secondweek.repository.model.Document;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -19,17 +20,18 @@ public class DocumentRepositoryImpl implements DocumentRepository {
     private static final Logger logger = LogManager.getLogger(DocumentRepositoryImpl.class);
     private final ConnectionService connectionService;
 
+    @Autowired
     public DocumentRepositoryImpl(ConnectionService connectionService) {
         this.connectionService = connectionService;
     }
 
     @Override
     public Document add(Document document) {
-        String sql = "INSERT INTO documents (unique_number,description) VALUES(?,?)";
         String uniqueNumber = document.getUniqueNumber();
         String description = document.getDescription();
         try (Connection connection = connectionService.getConnection()) {
             connection.setAutoCommit(false);
+            String sql = "INSERT INTO documents (unique_number,description) VALUES(?,?)";
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, uniqueNumber);
                 ps.setString(2, description);
@@ -54,10 +56,10 @@ public class DocumentRepositoryImpl implements DocumentRepository {
 
     @Override
     public Document getDocumentById(Long id) {
-        String findDocumentByIdQuery = "SELECT * FROM documents WHERE id=?";
         Document document = null;
         try (Connection connection = connectionService.getConnection()) {
             connection.setAutoCommit(false);
+            String findDocumentByIdQuery = "SELECT * FROM documents WHERE id=?";
             try (PreparedStatement ps = connection.prepareStatement(findDocumentByIdQuery)) {
                 ps.setLong(1, id);
                 try (ResultSet resultSet = ps.executeQuery()) {
@@ -82,20 +84,19 @@ public class DocumentRepositoryImpl implements DocumentRepository {
         Long id = resultSet.getLong("id");
         String uniqueNumber = resultSet.getString("unique_number");
         String description = resultSet.getString("description");
-        Document document = new Document(uniqueNumber, description);
-        document.setId(id);
+        Document document = new Document(id, uniqueNumber, description);
         return document;
     }
 
     @Override
     public void delete(Long id) {
-        String softDeleteByIdQuery = "UPDATE documents SET deleted = TRUE WHERE id=? and deleted=false";
         try (Connection connection = connectionService.getConnection()) {
             connection.setAutoCommit(false);
+            String softDeleteByIdQuery = "UPDATE documents SET deleted = TRUE WHERE id=? and deleted=false";
             try (PreparedStatement ps = connection.prepareStatement(softDeleteByIdQuery)) {
                 ps.setLong(1, id);
                 int amountOfChanges = ps.executeUpdate();
-                if(amountOfChanges==0){
+                if (amountOfChanges == 0) {
                     throw new DataBaseException("document with id: " + id + " not found");
                 }
                 connection.commit();

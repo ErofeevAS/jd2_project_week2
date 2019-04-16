@@ -1,10 +1,8 @@
 package com.gmail.erofeev.st.alexei.secondweek.controller.aspect;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
-@Scope("prototype")
 public class TimeCounter {
     private Long startTime;
     private Long stopTime;

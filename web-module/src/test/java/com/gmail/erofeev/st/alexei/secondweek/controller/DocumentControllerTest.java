@@ -1,7 +1,7 @@
 package com.gmail.erofeev.st.alexei.secondweek.controller;
 
 import com.gmail.erofeev.st.alexei.secondweek.controller.impl.DocumentControllerImpl;
-import com.gmail.erofeev.st.alexei.secondweek.controller.validataor.DocumentDTOValidator;
+import com.gmail.erofeev.st.alexei.secondweek.controller.validataor.impl.DocumentDTOValidatorImpl;
 import com.gmail.erofeev.st.alexei.secondweek.service.DocumentService;
 import com.gmail.erofeev.st.alexei.secondweek.service.model.DocumentDTO;
 import org.junit.Assert;
@@ -19,7 +19,7 @@ public class DocumentControllerTest {
     @Mock
     private DocumentService documentService;
     @Mock
-    private DocumentDTOValidator documentDTOValidator;
+    private DocumentDTOValidatorImpl documentDTOValidator;
 
     @Before
     public void init() {

@@ -24,19 +24,19 @@ public class DocumentControllerIntegrationTest {
     @Test
     public void shouldAddDocumentDTO() {
         DocumentDTO documentDTO = new DocumentDTO(DESCRIPTION);
-        documentDTO = documentController.add(documentDTO);
-        Assert.assertNotNull(documentDTO.getId());
-        Assert.assertNotNull(documentDTO.getUniqueNumber());
-        Assert.assertEquals(DESCRIPTION, documentDTO.getDescription());
+        DocumentDTO documentDTO2  = documentController.add(documentDTO);
+        Assert.assertNotNull(documentDTO2.getId());
+        Assert.assertNotNull(documentDTO2.getUniqueNumber());
+        Assert.assertEquals(DESCRIPTION, documentDTO2.getDescription());
     }
 
     @Test
     public void shouldGetDocumentDTOById() {
-        DocumentDTO documentDTO = documentController.getDocumentById(1L);
+        DocumentDTO documentDTO = documentController.getDocumentById(15L);
         Assert.assertNotNull(documentDTO.getId());
         Assert.assertNotNull(documentDTO.getUniqueNumber());
         long id = documentDTO.getId();
-        Assert.assertEquals(1L, id);
+        Assert.assertEquals(15L, id);
     }
 
 

@@ -1,5 +1,6 @@
-package com.gmail.erofeev.st.alexei.secondweek.repository.connection;
+package com.gmail.erofeev.st.alexei.secondweek.repository.connection.impl;
 
+import com.gmail.erofeev.st.alexei.secondweek.repository.connection.ConnectionService;
 import com.gmail.erofeev.st.alexei.secondweek.repository.exception.DataBaseException;
 import com.gmail.erofeev.st.alexei.secondweek.repository.properties.DataBaseProperties;
 import org.apache.logging.log4j.LogManager;
@@ -26,6 +27,7 @@ public class ConnectionServiceImpl implements ConnectionService {
             Class.forName(databaseProperties.getDriver());
         } catch (ClassNotFoundException e) {
             logger.error(e.getMessage(), e);
+            throw new DataBaseException("jdbc driver not found: " + e.getMessage());
         }
         this.dataBaseProperties = databaseProperties;
     }
@@ -58,9 +60,8 @@ public class ConnectionServiceImpl implements ConnectionService {
         properties.setProperty("user", dataBaseProperties.getUsername());
         properties.setProperty("password", dataBaseProperties.getPassword());
         properties.setProperty("serverTimezone", dataBaseProperties.getServerTimezone());
-        Connection connection;
         try {
-            connection = DriverManager.getConnection(dataBaseUrl, properties);
+            Connection connection = DriverManager.getConnection(dataBaseUrl, properties);
             logger.debug("connection was established");
             return connection;
         } catch (SQLException e) {

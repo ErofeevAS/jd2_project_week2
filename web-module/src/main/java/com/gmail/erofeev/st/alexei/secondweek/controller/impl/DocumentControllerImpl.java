@@ -2,7 +2,7 @@ package com.gmail.erofeev.st.alexei.secondweek.controller.impl;
 
 import com.gmail.erofeev.st.alexei.secondweek.controller.DocumentController;
 import com.gmail.erofeev.st.alexei.secondweek.controller.exception.ControllerException;
-import com.gmail.erofeev.st.alexei.secondweek.controller.validataor.DocumentDTOValidator;
+import com.gmail.erofeev.st.alexei.secondweek.controller.validataor.impl.DocumentDTOValidatorImpl;
 import com.gmail.erofeev.st.alexei.secondweek.service.DocumentService;
 import com.gmail.erofeev.st.alexei.secondweek.service.model.DocumentDTO;
 import org.apache.logging.log4j.LogManager;
@@ -17,10 +17,10 @@ import java.util.Map;
 public class DocumentControllerImpl implements DocumentController {
     private static final Logger logger = LogManager.getLogger(DocumentControllerImpl.class);
     private DocumentService documentService;
-    private DocumentDTOValidator documentDTOValidator;
+    private DocumentDTOValidatorImpl documentDTOValidator;
 
     @Autowired
-    public DocumentControllerImpl(DocumentService documentService, DocumentDTOValidator documentDTOValidator) {
+    public DocumentControllerImpl(DocumentService documentService, DocumentDTOValidatorImpl documentDTOValidator) {
         this.documentService = documentService;
         this.documentDTOValidator = documentDTOValidator;
     }

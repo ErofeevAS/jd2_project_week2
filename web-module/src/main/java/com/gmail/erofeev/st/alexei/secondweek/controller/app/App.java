@@ -15,7 +15,7 @@ public class App {
         DocumentDTO documentDTO = new DocumentDTO("0123456789");
         documentController.add(documentDTO);
         documentController.getDocumentById(1L);
-//        documentController.delete(1L);
+        documentController.delete(1L);
 
     }
 }

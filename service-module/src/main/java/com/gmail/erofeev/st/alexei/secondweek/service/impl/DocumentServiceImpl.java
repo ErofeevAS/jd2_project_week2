@@ -15,15 +15,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class DocumentServiceImpl implements DocumentService {
     private static final Logger logger = LogManager.getLogger(DocumentServiceImpl.class);
+    private final DocumentRepository documentRepository;
+    private final DocumentConverter documentConverter;
+
     @Autowired
-    private DocumentRepository documentRepository;
+    public DocumentServiceImpl(DocumentRepository documentRepository, DocumentConverter documentConverter) {
+        this.documentRepository = documentRepository;
+        this.documentConverter = documentConverter;
+    }
 
     @Override
     public DocumentDTO add(DocumentDTO documentDTO) {
         documentDTO.setUniqueNumber(UniqueNumberGenerator.generate());
-        Document document = DocumentConverter.fromDTO(documentDTO);
+        Document document = documentConverter.fromDTO(documentDTO);
         document = documentRepository.add(document);
-        documentDTO = DocumentConverter.toDTO(document);
+        documentDTO = documentConverter.toDTO(document);
         return documentDTO;
     }
 
@@ -31,8 +37,7 @@ public class DocumentServiceImpl implements DocumentService {
     public DocumentDTO getDocumentById(Long id) {
         Document document = documentRepository.getDocumentById(id);
         if (document != null) {
-            DocumentDTO documentDTO = DocumentConverter.toDTO(document);
-            return documentDTO;
+            return documentConverter.toDTO(document);
         } else {
             String message = "Document with id: " + id + " not found";
             logger.error(message);

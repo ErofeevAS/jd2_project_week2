@@ -13,6 +13,12 @@ public class Document {
         this.description = description;
     }
 
+    public Document(Long id, String uniqueNumber, String description) {
+        this.id = id;
+        this.uniqueNumber = uniqueNumber;
+        this.description = description;
+    }
+
     public Long getId() {
         return id;
     }
